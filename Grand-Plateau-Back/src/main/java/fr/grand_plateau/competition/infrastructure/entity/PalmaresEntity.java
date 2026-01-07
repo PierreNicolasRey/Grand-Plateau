@@ -1,4 +1,4 @@
-package fr.grand_plateau.competition.infrastructure.out.persistence.entity;
+package fr.grand_plateau.competition.infrastructure.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

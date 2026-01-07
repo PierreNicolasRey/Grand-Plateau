@@ -1,6 +1,6 @@
-package fr.grand_plateau.competition.infrastructure.out.persistence.entity;
+package fr.grand_plateau.competition.infrastructure.entity;
 
-import fr.grand_plateau.administration.infrastructure.out.persistence.entity.PaysEntity;
+import fr.grand_plateau.administration.infrastructure.entity.PaysEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
