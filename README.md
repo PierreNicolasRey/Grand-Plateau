@@ -3,14 +3,13 @@
 ## Aperçu du projet
 > Cette application permet la gestion et le suivi de statistiques de cyclisme mondiales
 > Elle a été conçue pour répondre au besoin d'un utilisateur unique (mon père).
-Application de gestion et suivi de données cyclistes (Angular/Spring Boot/HSQLDB)
 
 ---
 
 ## Tech Stack
 > - **Language** : Java 21
 > - **Framework** : Spring Boot 4.0.1 (Web, Data JPA, Validation)
-> - **Database** : HSQLCB
+> - **Database** : HSQLDB
 > - **Tools** : Maven 3.9.6, MapStruct 1.6.3
 
 ---
@@ -34,8 +33,8 @@ Chacun de ces domaines possède son propre hexagone domain avec ses ports et son
 
 ### Front
 Côté front, le code est organisé selon les modules : core (intercepteurs si besoin, constantes d'environnement), features et shared.
-Le module "features" regroupe l'ensemble des features isolées.
-Le module "shared" contient toutes les données communes de l'application : composants réutilisables, données de test, modèles communs.
+- Le module "features" regroupe l'ensemble des features isolées.
+- Le module "shared" contient toutes les données communes de l'application : composants réutilisables, données de test, modèles communs.
 
 ---
 
