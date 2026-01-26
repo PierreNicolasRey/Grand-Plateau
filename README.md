@@ -47,6 +47,8 @@ couverte par un test et que l'architecture reste claire et refactorable. (SOUS R
 
 Record Java : Utilisés pour les modèles et DTOs l'immutabilité.
 
-MapStruct : choisi pour le mapping performant et type-safe entre les couches applicatives.
+MapStruct : Choisi pour le mapping performant et type-safe entre les couches applicatives.
+
+Penpot : Les maquettes sont réalisées à l'aide de l'outil gratuit Penpot.
 
 ---
