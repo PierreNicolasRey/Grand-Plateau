@@ -52,3 +52,8 @@ MapStruct : Choisi pour le mapping performant et type-safe entre les couches app
 Penpot : Les maquettes sont réalisées à l'aide de l'outil gratuit Penpot.
 
 ---
+
+## Copyright
+
+© 2026 Pierre-Nicolas Rey. Tous droits réservés. Le code et les modèles présents dans ce dépôt sont mis à disposition pour consultation technique uniquement. 
+Toute reproduction ou utilisation sans autorisation préalable est interdite.
