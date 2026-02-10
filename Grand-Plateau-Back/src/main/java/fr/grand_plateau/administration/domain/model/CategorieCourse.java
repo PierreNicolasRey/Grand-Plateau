@@ -2,5 +2,5 @@ package fr.grand_plateau.administration.domain.model;
 
 import java.util.UUID;
 
-public record Pays(UUID paysId, String nom, String codeIso, String drapeau) {
+public record CategorieCourse(UUID categorieCourseId, String nom) {
 }

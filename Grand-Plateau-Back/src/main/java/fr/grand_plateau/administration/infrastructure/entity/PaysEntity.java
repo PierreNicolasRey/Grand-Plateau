@@ -18,6 +18,9 @@ public class PaysEntity {
   private UUID paysId;
   @Column(name = "NOM", nullable = false)
   private String nom;
+
+  @Column(name = "CODE_ISO", nullable = false)
+  private String codeIso;
   @Column(name = "DRAPEAU", nullable = false)
   private String drapeau;
 
@@ -35,6 +38,14 @@ public class PaysEntity {
 
   public void setNom(String nom) {
     this.nom = nom;
+  }
+
+  public String getCodeIso() {
+    return codeIso;
+  }
+
+  public void setCodeIso(String codeIso) {
+    this.codeIso = codeIso;
   }
 
   public String getDrapeau() {
