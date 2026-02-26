@@ -1,14 +1,15 @@
 package fr.grand_plateau.administration.domain.service;
 
 import fr.grand_plateau.administration.application.ports.out.CategorieCourseRepository;
+import fr.grand_plateau.administration.domain.exception.CategorieCourseAlreadyExistException;
 import fr.grand_plateau.administration.domain.exception.CategorieCourseNotFoundException;
-import fr.grand_plateau.administration.domain.exception.PaysAlreadyExistException;
-import fr.grand_plateau.administration.domain.exception.PaysNotFoundException;
 import fr.grand_plateau.administration.domain.model.CategorieCourse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class CategorieCourseServiceTest {
   @Mock
   private CategorieCourseRepository categorieCourseRepository;
@@ -59,7 +61,7 @@ class CategorieCourseServiceTest {
   }
 
   @Test
-  void should_find_all_Pays_successfully() {
+  void should_find_all_CategorieCourse_successfully() {
     // GIVEN
     List<CategorieCourse> expectedCategories = List.of(
         new CategorieCourse(UUID.randomUUID(), "Catégorie 1", "C1"),
@@ -78,7 +80,7 @@ class CategorieCourseServiceTest {
   }
 
   @Test
-  void should_return_empty_list_when_no_Pays_found() {
+  void should_return_empty_list_when_no_CategorieCourse_found() {
     // GIVEN
     when(categorieCourseRepository.findAll()).thenReturn(new ArrayList<>());
 
@@ -94,7 +96,7 @@ class CategorieCourseServiceTest {
 
   // --- save() ---
   @Test
-  void should_save_new_Pays_successfully() {
+  void should_save_new_CategorieCourse_successfully() {
     // GIVEN
     String categorieName = "Catégorie 1";
     CategorieCourse expectedCategorie = new CategorieCourse(UUID.randomUUID(), categorieName, "C1");
@@ -112,7 +114,7 @@ class CategorieCourseServiceTest {
   }
 
   @Test
-  void should_throw_PaysAlreadyExistException_on_saving() {
+  void should_throw_CategorieCourseAlreadyExistException_on_saving() {
     // GIVEN
     String categorieName = "Catégorie 1";
     CategorieCourse existingCategorie = new CategorieCourse(UUID.randomUUID(), categorieName, "C1");
@@ -120,7 +122,7 @@ class CategorieCourseServiceTest {
     when(categorieCourseRepository.findByName(categorieName)).thenReturn(Optional.of(existingCategorie));
 
     // THEN
-    Assertions.assertThrows(PaysAlreadyExistException.class, () -> {
+    Assertions.assertThrows(CategorieCourseAlreadyExistException.class, () -> {
       // WHEN
       sut.save(categorieName);
     });
@@ -128,7 +130,7 @@ class CategorieCourseServiceTest {
 
   // --- delete() ---
   @Test
-  void should_delete_Pays_successfully() {
+  void should_delete_CategorieCourse_successfully() {
     // GIVEN
     UUID categorieId = UUID.randomUUID();
     String categorieName = "Catégorie 1";
@@ -144,14 +146,14 @@ class CategorieCourseServiceTest {
   }
 
   @Test
-  void should_throw_PaysNotFoundException_when_deleting_non_existing_Pays() {
+  void should_throw_CategorieCourseNotFoundException_when_deleting_non_existing_CategorieCourse() {
     // GIVEN
     UUID categorieId = UUID.randomUUID();
 
     when(categorieCourseRepository.findById(categorieId)).thenReturn(Optional.empty());
 
     // THEN
-    Assertions.assertThrows(PaysNotFoundException.class, () -> {
+    Assertions.assertThrows(CategorieCourseNotFoundException.class, () -> {
       // WHEN
       sut.delete(categorieId);
     });
