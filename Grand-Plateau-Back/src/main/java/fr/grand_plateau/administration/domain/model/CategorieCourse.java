@@ -1,8 +1,14 @@
 package fr.grand_plateau.administration.domain.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public record CategorieCourse(UUID categorieCourseId, String nom, String abreviation) {
+  public CategorieCourse {
+    Objects.requireNonNull(categorieCourseId);
+    Objects.requireNonNull(nom);
+    Objects.requireNonNull(abreviation);
+  }
   public static CategorieCourse create(String nom) {
     validateArguments(nom);
     String[] nomSplitted = nom.split(" ");
