@@ -1,14 +1,14 @@
 package fr.grand_plateau.administration.infrastructure.adapter.out.persistence;
 
-import fr.grand_plateau.administration.application.ports.out.PaysPersistencePort;
-import fr.grand_plateau.administration.infrastructure.entity.PaysEntity;
+import fr.grand_plateau.administration.application.ports.out.PaysRepository;
+import fr.grand_plateau.administration.domain.model.Pays;
 import fr.grand_plateau.administration.infrastructure.repository.SpringDataPaysRepository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class PaysPersistenceAdapter implements PaysPersistencePort {
+public class PaysPersistenceAdapter implements PaysRepository {
 
   private final SpringDataPaysRepository jpaRepository;
 
@@ -16,17 +16,25 @@ public class PaysPersistenceAdapter implements PaysPersistencePort {
     this.jpaRepository = jpaRepository;
   }
   @Override
-  public Optional<PaysEntity> findById(UUID id) {
+  public Optional<Pays> findById(UUID id) {
     return Optional.empty();
   }
 
   @Override
-  public List<PaysEntity> findAll() {
+  public Optional<Pays> findByName(String paysName) {
+    return Optional.empty();
+  }
+
+  @Override
+  public List<Pays> findAll() {
     return null;
   }
 
   @Override
-  public PaysEntity save(PaysEntity pays) {
+  public Pays save(Pays pays) {
     return null;
   }
+
+  @Override
+  public void delete(UUID id) {}
 }

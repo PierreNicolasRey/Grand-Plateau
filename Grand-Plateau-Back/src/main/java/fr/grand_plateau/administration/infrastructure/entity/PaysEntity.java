@@ -21,8 +21,6 @@ public class PaysEntity {
 
   @Column(name = "CODE_ISO", nullable = false)
   private String codeIso;
-  @Column(name = "DRAPEAU", nullable = false)
-  private String drapeau;
 
   public UUID getPaysId() {
     return paysId;
@@ -46,13 +44,5 @@ public class PaysEntity {
 
   public void setCodeIso(String codeIso) {
     this.codeIso = codeIso;
-  }
-
-  public String getDrapeau() {
-    return drapeau;
-  }
-
-  public void setDrapeau(String drapeau) {
-    this.drapeau = drapeau;
   }
 }
