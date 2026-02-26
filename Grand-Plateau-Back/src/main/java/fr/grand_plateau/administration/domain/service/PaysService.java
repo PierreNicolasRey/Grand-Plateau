@@ -33,7 +33,7 @@ public class PaysService implements PaysInputPort {
       throw new PaysAlreadyExistException(paysRequest.nom());
     }
 
-    Pays paysToSave = new Pays(UUID.randomUUID(), paysRequest.nom().toUpperCase(), paysRequest.codeISO());
+    Pays paysToSave = Pays.create(paysRequest.nom(), paysRequest.codeISO());
 
     return this.paysRepository.save(paysToSave);
   }
