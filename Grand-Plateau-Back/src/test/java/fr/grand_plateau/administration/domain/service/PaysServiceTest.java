@@ -4,6 +4,7 @@ import fr.grand_plateau.administration.application.ports.out.PaysRepository;
 import fr.grand_plateau.administration.domain.exception.PaysAlreadyExistException;
 import fr.grand_plateau.administration.domain.exception.PaysNotFoundException;
 import fr.grand_plateau.administration.domain.model.Pays;
+import fr.grand_plateau.administration.domain.model.PaysRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -99,11 +101,13 @@ class PaysServiceTest {
   @Test
   void should_save_new_Pays_successfully() {
     // GIVEN
-    String paysName = "Test";
+    PaysRequest paysRequest = new PaysRequest("Test", "TS");
     Pays expectedPays = new Pays(UUID.randomUUID(), "TEST", "TS");
 
+    when(paysRepository.save(any(Pays.class))).thenReturn(expectedPays);
+
     // WHEN
-    Pays paysSaved = sut.save(paysName);
+    Pays paysSaved = sut.save(paysRequest);
 
     // THEN
     Assertions.assertAll(() -> {
@@ -115,15 +119,15 @@ class PaysServiceTest {
   @Test
   void should_throw_PaysAlreadyExistException_on_saving() {
     // GIVEN
-    String paysName = "Test";
+    PaysRequest paysRequest = new PaysRequest("Test", "TS");
     Pays existingPays = new Pays(UUID.randomUUID(), "TEST", "TS");
 
-    when(paysRepository.findByName(paysName)).thenReturn(Optional.of(existingPays));
+    when(paysRepository.findByName(paysRequest.nom())).thenReturn(Optional.of(existingPays));
 
     // THEN
     Assertions.assertThrows(PaysAlreadyExistException.class, () -> {
       // WHEN
-      sut.save(paysName);
+      sut.save(paysRequest);
     });
   }
 
