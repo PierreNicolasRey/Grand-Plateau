@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ZoneChampionnatTest {
 
@@ -14,6 +15,7 @@ class ZoneChampionnatTest {
       assertEquals(ZoneChampionnat.JEUX_OLYMPIQUES, ZoneChampionnat.fromCode("JO"));
       assertEquals(ZoneChampionnat.MONDIAL, ZoneChampionnat.fromCode("WC"));
       assertEquals(ZoneChampionnat.NATIONAL, ZoneChampionnat.fromCode("NC"));
+      assertThrows(IllegalArgumentException.class, () -> ZoneChampionnat.fromCode("TEST"));
     });
   }
 }

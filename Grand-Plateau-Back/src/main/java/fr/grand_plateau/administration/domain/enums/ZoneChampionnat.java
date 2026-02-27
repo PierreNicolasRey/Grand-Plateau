@@ -15,6 +15,20 @@ public enum ZoneChampionnat {
   }
 
   public static ZoneChampionnat fromCode(String code) {
-    return null;
+    return switch (code) {
+      case "CC" -> ZoneChampionnat.CONTINENTAL;
+      case "JO" -> ZoneChampionnat.JEUX_OLYMPIQUES;
+      case "WC" -> ZoneChampionnat.MONDIAL;
+      case "NC" -> ZoneChampionnat.NATIONAL;
+      default -> throw new IllegalArgumentException("Code de zone de championnat inconnu");
+    };
+  }
+
+  public String getLibelle() {
+    return libelle;
+  }
+
+  public String getCode() {
+    return code;
   }
 }
