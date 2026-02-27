@@ -20,6 +20,14 @@ public enum NiveauCourse {
   public String getCode() { return code; }
 
   public static NiveauCourse fromCode(String code) {
-    return null;
+    return switch (code) {
+      case "WT" -> NiveauCourse.WORLD_TOUR;
+      case "PS" -> NiveauCourse.PRO_SERIES;
+      case "I" -> NiveauCourse.CLASSE_1;
+      case "II" -> NiveauCourse.CLASSE_2;
+      case "C" -> NiveauCourse.CHAMPIONNAT;
+      case "JR" -> NiveauCourse.JEUX_CHPT_INTERNAT;
+      default -> throw new IllegalArgumentException("Code de niveau de course inconnu");
+    };
   }
 }
