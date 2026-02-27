@@ -11,7 +11,7 @@ class PaysTest {
   @Test
   void should_create_Pays_successfully() {
     // GIVEN
-    String name = "Test";
+    String name = "test-test";
     String isoCode = "TS";
 
     // WHEN
@@ -20,7 +20,7 @@ class PaysTest {
     // THEN
     Assertions.assertAll(() -> {
       assertNotNull(createdPays);
-      assertEquals("TEST", createdPays.nom());
+      assertEquals("Test-Test", createdPays.nom());
       assertEquals("TS", createdPays.codeIso());
     });
   }

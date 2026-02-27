@@ -15,7 +15,7 @@ class NiveauEquipeTest {
     // THEN
     Assertions.assertAll(() -> {
       assertNotNull(result);
-      assertEquals("World Tour", result.nom());
+      assertEquals("WORLD TOUR", result.nom());
       assertEquals("WT", result.abreviation());
     });
   }

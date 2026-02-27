@@ -14,7 +14,7 @@ public record Pays(UUID paysId, String nom, String codeIso) {
 
     return new Pays(
         UUID.randomUUID(),
-        nom.trim().toUpperCase(),
+        formatNom(nom),
         codeIso.trim().toUpperCase()
     );
   }
@@ -26,5 +26,22 @@ public record Pays(UUID paysId, String nom, String codeIso) {
     if (codeIso == null || codeIso.isBlank() || codeIso.trim().length() != 2) {
       throw new IllegalArgumentException("Le code ISO doit faire 2 caractères");
     }
+  }
+
+  private static String formatNom(String nom) {
+    char[] chars = nom.trim().toLowerCase().toCharArray();
+    boolean foundSeparator = true;
+
+    for (int i = 0; i < chars.length; i++) {
+      if (Character.isLetter(chars[i])) {
+        if (foundSeparator) {
+          chars[i] = Character.toUpperCase(chars[i]);
+          foundSeparator = false;
+        }
+      } else if (chars[i] == ' ' || chars[i] == '-') {
+        foundSeparator = true;
+      }
+    }
+    return new String(chars);
   }
 }
