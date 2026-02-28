@@ -2,6 +2,7 @@ package fr.grand_plateau.administration.domain.service;
 
 import fr.grand_plateau.administration.application.ports.in.TypeCourseInputPort;
 import fr.grand_plateau.administration.application.ports.out.TypeCourseRepository;
+import fr.grand_plateau.administration.domain.exception.TypeCourseNotFoundException;
 import fr.grand_plateau.administration.domain.model.TypeCourse;
 import fr.grand_plateau.administration.domain.model.TypeCourseRequest;
 
@@ -17,16 +18,23 @@ public class TypeCourseService implements TypeCourseInputPort {
 
   @Override
   public TypeCourse findById(UUID id) {
-    return null;
+    return this.typeCourseRepository.findById(id).orElseThrow(() -> new TypeCourseNotFoundException(id));
   }
 
   @Override
   public List<TypeCourse> findAll() {
-    return null;
+    return this.typeCourseRepository.findAll();
   }
 
   @Override
   public TypeCourse save(TypeCourseRequest typeCourseRequest) {
-    return null;
+    TypeCourse typeCourseToSave = TypeCourse.create(
+        typeCourseRequest.niveauCourse(),
+        typeCourseRequest.zoneChampionnat(),
+        typeCourseRequest.duree(),
+        typeCourseRequest.prestigeCourse()
+    );
+
+    return this.typeCourseRepository.save(typeCourseToSave);
   }
 }
