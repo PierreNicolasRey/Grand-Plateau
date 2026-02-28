@@ -1,6 +1,6 @@
 package fr.grand_plateau.competition.infrastructure.mapper;
 
-import fr.grand_plateau.administration.infrastructure.repository.SpringDataPaysRepository;
+import fr.grand_plateau.administration.infrastructure.out.persistence.repository.SpringDataPaysRepository;
 import fr.grand_plateau.competition.domain.model.Equipe;
 import fr.grand_plateau.competition.infrastructure.entity.EquipeEntity;
 import org.mapstruct.Mapper;

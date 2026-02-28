@@ -1,6 +1,6 @@
-package fr.grand_plateau.administration.infrastructure.repository;
+package fr.grand_plateau.administration.infrastructure.out.persistence.repository;
 
-import fr.grand_plateau.administration.infrastructure.entity.PaysEntity;
+import fr.grand_plateau.administration.infrastructure.out.persistence.entity.PaysEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
