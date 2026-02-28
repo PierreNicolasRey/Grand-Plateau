@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface CategorieCourseRepository {
   Optional<CategorieCourse> findById(UUID id);
-  Optional<CategorieCourse> findByName(String name);
+  Optional<CategorieCourse> findByNom(String name);
   List<CategorieCourse> findAll();
   CategorieCourse save(CategorieCourse categorieCourse);
   void delete(UUID id);

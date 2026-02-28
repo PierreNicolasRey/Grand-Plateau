@@ -29,7 +29,7 @@ public class PaysService implements PaysInputPort {
 
   @Override
   public Pays save(PaysRequest paysRequest) {
-    if (this.paysRepository.findByName(paysRequest.nom()).isPresent()) {
+    if (this.paysRepository.findByNom(paysRequest.nom()).isPresent()) {
       throw new PaysAlreadyExistException(paysRequest.nom());
     }
 

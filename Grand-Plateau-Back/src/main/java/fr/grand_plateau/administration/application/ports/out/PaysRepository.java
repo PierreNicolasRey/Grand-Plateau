@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface PaysRepository {
   Optional<Pays> findById(UUID id);
-  Optional<Pays> findByName(String name);
+  Optional<Pays> findByNom(String name);
   List<Pays> findAll();
   Pays save(Pays pays);
   void delete(UUID id);

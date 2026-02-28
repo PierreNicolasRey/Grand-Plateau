@@ -28,7 +28,7 @@ public class CategorieCourseService implements CategorieCourseInputPort {
 
   @Override
   public CategorieCourse save(String nom) {
-    if (this.categorieCourseRepository.findByName(nom).isPresent()) {
+    if (this.categorieCourseRepository.findByNom(nom).isPresent()) {
       throw new CategorieCourseAlreadyExistException(nom);
     }
 

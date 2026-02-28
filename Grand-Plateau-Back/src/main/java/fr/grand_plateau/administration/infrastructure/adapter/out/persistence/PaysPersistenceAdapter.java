@@ -21,7 +21,7 @@ public class PaysPersistenceAdapter implements PaysRepository {
   }
 
   @Override
-  public Optional<Pays> findByName(String paysName) {
+  public Optional<Pays> findByNom(String paysName) {
     return Optional.empty();
   }
 

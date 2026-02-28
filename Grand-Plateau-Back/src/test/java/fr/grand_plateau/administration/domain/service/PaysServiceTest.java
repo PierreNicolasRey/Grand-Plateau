@@ -122,7 +122,7 @@ class PaysServiceTest {
     PaysRequest paysRequest = new PaysRequest("Test", "TS");
     Pays existingPays = new Pays(UUID.randomUUID(), "TEST", "TS");
 
-    when(paysRepository.findByName(paysRequest.nom())).thenReturn(Optional.of(existingPays));
+    when(paysRepository.findByNom(paysRequest.nom())).thenReturn(Optional.of(existingPays));
 
     // THEN
     Assertions.assertThrows(PaysAlreadyExistException.class, () -> {

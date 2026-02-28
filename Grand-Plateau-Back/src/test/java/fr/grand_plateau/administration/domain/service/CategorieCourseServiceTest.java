@@ -119,7 +119,7 @@ class CategorieCourseServiceTest {
     String categorieName = "Catégorie 1";
     CategorieCourse existingCategorie = new CategorieCourse(UUID.randomUUID(), categorieName, "C1");
 
-    when(categorieCourseRepository.findByName(categorieName)).thenReturn(Optional.of(existingCategorie));
+    when(categorieCourseRepository.findByNom(categorieName)).thenReturn(Optional.of(existingCategorie));
 
     // THEN
     Assertions.assertThrows(CategorieCourseAlreadyExistException.class, () -> {
