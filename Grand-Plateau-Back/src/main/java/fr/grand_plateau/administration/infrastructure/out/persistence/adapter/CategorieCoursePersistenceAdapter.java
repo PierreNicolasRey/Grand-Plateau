@@ -2,6 +2,7 @@ package fr.grand_plateau.administration.infrastructure.out.persistence.adapter;
 
 import fr.grand_plateau.administration.application.ports.out.CategorieCourseRepository;
 import fr.grand_plateau.administration.domain.model.CategorieCourse;
+import fr.grand_plateau.administration.infrastructure.out.persistence.entity.CategorieCourseEntity;
 import fr.grand_plateau.administration.infrastructure.out.persistence.mapper.CategorieCoursePersistenceMapper;
 import fr.grand_plateau.administration.infrastructure.out.persistence.repository.SpringDataCategorieCourseRepository;
 
@@ -21,26 +22,27 @@ public class CategorieCoursePersistenceAdapter implements CategorieCourseReposit
 
   @Override
   public Optional<CategorieCourse> findById(UUID id) {
-    return Optional.empty();
+    return this.jpaRepository.findById(id).map(this.mapper::toDomain);
   }
 
   @Override
   public Optional<CategorieCourse> findByNom(String name) {
-    return Optional.empty();
+    return this.jpaRepository.findByNom(name).map(this.mapper::toDomain);
   }
 
   @Override
   public List<CategorieCourse> findAll() {
-    return null;
+    return this.jpaRepository.findAll().stream().map(this.mapper::toDomain).toList();
   }
 
   @Override
   public CategorieCourse save(CategorieCourse categorieCourse) {
-    return null;
+    CategorieCourseEntity entitySaved = this.jpaRepository.save(this.mapper.toEntity(categorieCourse));
+    return this.mapper.toDomain(entitySaved);
   }
 
   @Override
   public void delete(UUID id) {
-
+    this.jpaRepository.deleteById(id);
   }
 }
