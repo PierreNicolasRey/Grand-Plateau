@@ -96,11 +96,11 @@ class CategorieCoursePersistenceAdapterTest {
   @Test
   void should_return_empty_when_not_found_by_name() {
     // GIVEN
-    UUID id = UUID.randomUUID();
-    when(repository.findById(id)).thenReturn(Optional.empty());
+    String nom = "Catégorie 13";
+    when(repository.findByNom(nom)).thenReturn(Optional.empty());
 
     // WHEN
-    Optional<CategorieCourse> result = sut.findById(id);
+    Optional<CategorieCourse> result = sut.findByNom(nom);
 
     // THEN
     assertFalse(result.isPresent());
