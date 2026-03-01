@@ -5,11 +5,13 @@ import fr.grand_plateau.administration.domain.model.CategorieCourse;
 import fr.grand_plateau.administration.infrastructure.out.persistence.entity.CategorieCourseEntity;
 import fr.grand_plateau.administration.infrastructure.out.persistence.mapper.CategorieCoursePersistenceMapper;
 import fr.grand_plateau.administration.infrastructure.out.persistence.repository.SpringDataCategorieCourseRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Component
 public class CategorieCoursePersistenceAdapter implements CategorieCourseRepository {
   private final SpringDataCategorieCourseRepository jpaRepository;
   private final CategorieCoursePersistenceMapper mapper;
