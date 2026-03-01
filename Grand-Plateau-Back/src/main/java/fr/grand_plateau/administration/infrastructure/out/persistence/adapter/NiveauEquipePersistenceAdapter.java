@@ -2,6 +2,7 @@ package fr.grand_plateau.administration.infrastructure.out.persistence.adapter;
 
 import fr.grand_plateau.administration.application.ports.out.NiveauEquipeRepository;
 import fr.grand_plateau.administration.domain.model.NiveauEquipe;
+import fr.grand_plateau.administration.infrastructure.out.persistence.entity.NiveauEquipeEntity;
 import fr.grand_plateau.administration.infrastructure.out.persistence.mapper.NiveauEquipePersistenceMapper;
 import fr.grand_plateau.administration.infrastructure.out.persistence.repository.SpringDataNiveauEquipeRepository;
 import org.springframework.stereotype.Component;
@@ -22,16 +23,18 @@ public class NiveauEquipePersistenceAdapter implements NiveauEquipeRepository {
 
   @Override
   public Optional<NiveauEquipe> findById(UUID id) {
-    return Optional.empty();
+    return this.repository.findById(id).map(mapper::toDomain);
   }
 
   @Override
   public List<NiveauEquipe> findAll() {
-    return null;
+    return this.repository.findAll().stream().map(mapper::toDomain).toList();
   }
 
   @Override
   public NiveauEquipe save(NiveauEquipe niveauEquipe) {
-    return null;
+    NiveauEquipeEntity entitySaved = this.repository.save(this.mapper.toEntity(niveauEquipe));
+
+    return this.mapper.toDomain(entitySaved);
   }
 }
