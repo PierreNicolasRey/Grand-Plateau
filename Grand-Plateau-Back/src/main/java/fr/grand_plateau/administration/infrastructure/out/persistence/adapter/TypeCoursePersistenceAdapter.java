@@ -2,6 +2,7 @@ package fr.grand_plateau.administration.infrastructure.out.persistence.adapter;
 
 import fr.grand_plateau.administration.application.ports.out.TypeCourseRepository;
 import fr.grand_plateau.administration.domain.model.TypeCourse;
+import fr.grand_plateau.administration.infrastructure.out.persistence.entity.TypeCourseEntity;
 import fr.grand_plateau.administration.infrastructure.out.persistence.mapper.TypeCoursePersistenceMapper;
 import fr.grand_plateau.administration.infrastructure.out.persistence.repository.SpringDataTypeCourseRepository;
 import org.springframework.stereotype.Component;
@@ -23,16 +24,18 @@ public class TypeCoursePersistenceAdapter implements TypeCourseRepository {
 
   @Override
   public Optional<TypeCourse> findById(UUID id) {
-    return Optional.empty();
+    return this.typeCourseRepository.findById(id).map(this.mapper::toDomain);
   }
 
   @Override
   public List<TypeCourse> findAll() {
-    return null;
+    return this.typeCourseRepository.findAll().stream().map(this.mapper::toDomain).toList();
   }
 
   @Override
   public TypeCourse save(TypeCourse typeCourse) {
-    return null;
+    TypeCourseEntity entitySaved = this.typeCourseRepository.save(this.mapper.toEntity(typeCourse));
+
+    return this.mapper.toDomain(entitySaved);
   }
 }

@@ -37,4 +37,44 @@ public class TypeCourseEntity {
   @Column(name = "PRESTIGE")
   @Enumerated(EnumType.STRING)
   private PrestigeCourse prestigeCourse;
+
+  public UUID getTypeCourseId() {
+    return typeCourseId;
+  }
+
+  public void setTypeCourseId(UUID typeCourseId) {
+    this.typeCourseId = typeCourseId;
+  }
+
+  public NiveauCourse getNiveauCourse() {
+    return niveauCourse;
+  }
+
+  public void setNiveauCourse(NiveauCourse niveauCourse) {
+    this.niveauCourse = niveauCourse;
+  }
+
+  public ZoneChampionnat getZoneChampionnat() {
+    return zoneChampionnat;
+  }
+
+  public void setZoneChampionnat(ZoneChampionnat zoneChampionnat) {
+    this.zoneChampionnat = zoneChampionnat;
+  }
+
+  public Integer getDuree() {
+    return duree;
+  }
+
+  public void setDuree(Integer duree) {
+    this.duree = duree;
+  }
+
+  public PrestigeCourse getPrestigeCourse() {
+    return prestigeCourse;
+  }
+
+  public void setPrestigeCourse(PrestigeCourse prestigeCourse) {
+    this.prestigeCourse = prestigeCourse;
+  }
 }

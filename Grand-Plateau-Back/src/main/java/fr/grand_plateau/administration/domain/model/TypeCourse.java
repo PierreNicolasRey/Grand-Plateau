@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record TypeCourse(
-    UUID id,
+    UUID typeCourseId,
     NiveauCourse niveauCourse,
     ZoneChampionnat zoneChampionnat,
     Integer duree,
@@ -16,7 +16,7 @@ public record TypeCourse(
 ) {
 
   public TypeCourse {
-    Objects.requireNonNull(id);
+    Objects.requireNonNull(typeCourseId);
     Objects.requireNonNull(niveauCourse);
   }
 
