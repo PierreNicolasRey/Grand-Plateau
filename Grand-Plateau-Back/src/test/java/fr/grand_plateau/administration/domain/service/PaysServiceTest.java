@@ -4,7 +4,7 @@ import fr.grand_plateau.administration.application.ports.out.PaysRepository;
 import fr.grand_plateau.administration.domain.exception.PaysAlreadyExistException;
 import fr.grand_plateau.administration.domain.exception.PaysNotFoundException;
 import fr.grand_plateau.administration.domain.model.Pays;
-import fr.grand_plateau.administration.domain.model.PaysRequest;
+import fr.grand_plateau.administration.infrastructure.in.web.dto.PaysRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -101,13 +101,14 @@ class PaysServiceTest {
   @Test
   void should_save_new_Pays_successfully() {
     // GIVEN
-    PaysRequest paysRequest = new PaysRequest("Test", "TS");
+    String nom = "Test";
+    String codeISO = "TS";
     Pays expectedPays = new Pays(UUID.randomUUID(), "TEST", "TS");
 
     when(paysRepository.save(any(Pays.class))).thenReturn(expectedPays);
 
     // WHEN
-    Pays paysSaved = sut.save(paysRequest);
+    Pays paysSaved = sut.save(nom, codeISO);
 
     // THEN
     Assertions.assertAll(() -> {
@@ -119,15 +120,16 @@ class PaysServiceTest {
   @Test
   void should_throw_PaysAlreadyExistException_on_saving() {
     // GIVEN
-    PaysRequest paysRequest = new PaysRequest("Test", "TS");
+    String nom = "Test";
+    String codeISO = "TS";
     Pays existingPays = new Pays(UUID.randomUUID(), "TEST", "TS");
 
-    when(paysRepository.findByNom(paysRequest.nom())).thenReturn(Optional.of(existingPays));
+    when(paysRepository.findByNom(nom)).thenReturn(Optional.of(existingPays));
 
     // THEN
     Assertions.assertThrows(PaysAlreadyExistException.class, () -> {
       // WHEN
-      sut.save(paysRequest);
+      sut.save(nom, codeISO);
     });
   }
 

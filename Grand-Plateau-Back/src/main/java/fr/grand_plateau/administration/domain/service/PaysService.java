@@ -5,7 +5,7 @@ import fr.grand_plateau.administration.application.ports.out.PaysRepository;
 import fr.grand_plateau.administration.domain.exception.PaysAlreadyExistException;
 import fr.grand_plateau.administration.domain.exception.PaysNotFoundException;
 import fr.grand_plateau.administration.domain.model.Pays;
-import fr.grand_plateau.administration.domain.model.PaysRequest;
+import fr.grand_plateau.administration.infrastructure.in.web.dto.PaysRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,12 +28,12 @@ public class PaysService implements PaysInputPort {
   }
 
   @Override
-  public Pays save(PaysRequest paysRequest) {
-    if (this.paysRepository.findByNom(paysRequest.nom()).isPresent()) {
-      throw new PaysAlreadyExistException(paysRequest.nom());
+  public Pays save(String nom, String codeISO) {
+    if (this.paysRepository.findByNom(nom).isPresent()) {
+      throw new PaysAlreadyExistException(nom);
     }
 
-    Pays paysToSave = Pays.create(paysRequest.nom(), paysRequest.codeISO());
+    Pays paysToSave = Pays.create(nom, codeISO);
 
     return this.paysRepository.save(paysToSave);
   }
