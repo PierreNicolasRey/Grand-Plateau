@@ -136,7 +136,6 @@ class PaysControllerTest {
   @Test
   void should_return_status_409_when_saving_already_existing_Pays() throws Exception {
     // GIVEN
-    UUID paysId = UUID.randomUUID();
     String nom = "TEST";
     String codeISO = "TS";
     PaysRequest request = new PaysRequest(nom, codeISO);
@@ -173,12 +172,9 @@ class PaysControllerTest {
     UUID paysId = UUID.randomUUID();
     doThrow(new PaysNotFoundException(paysId)).when(inputPort).delete(paysId);
 
-    // WHEN
+    // WHEN / THEN
     mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/pays/{id}", paysId))
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.code").value(RESOURCE_NOT_FOUND));
-
-    // THEN
-    verify(inputPort, never()).delete(paysId);
   }
 }
