@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
   @ExceptionHandler(ResourceAlreadyExistException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.CONFLICT)
   public ErrorResponseDTO handleResourceAlreadyExist(ResourceAlreadyExistException ex) {
     return new ErrorResponseDTO("BUSINESS_RULE_VIOLATION", ex.getMessage());
   }
