@@ -1,4 +1,4 @@
-package fr.grand_plateau.administration.infrastructure.in.web;
+package fr.grand_plateau.administration.infrastructure.in.web.controller;
 
 import fr.grand_plateau.administration.application.ports.in.PaysInputPort;
 import fr.grand_plateau.administration.domain.model.Pays;
