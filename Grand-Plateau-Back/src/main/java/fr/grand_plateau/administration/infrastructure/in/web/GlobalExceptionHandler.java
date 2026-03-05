@@ -21,4 +21,10 @@ public class GlobalExceptionHandler {
   public ErrorResponseDTO handleResourceNotFound(ResourceNotFoundException ex) {
     return new ErrorResponseDTO("RESOURCE_NOT_FOUND", ex.getMessage());
   }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErrorResponseDTO handleIllegalArgument(IllegalArgumentException ex) {
+    return new ErrorResponseDTO("ILLEGAL_ARGUMENT", ex.getMessage());
+  }
 }
