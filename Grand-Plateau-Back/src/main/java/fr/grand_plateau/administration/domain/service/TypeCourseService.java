@@ -2,9 +2,11 @@ package fr.grand_plateau.administration.domain.service;
 
 import fr.grand_plateau.administration.application.ports.in.TypeCourseInputPort;
 import fr.grand_plateau.administration.application.ports.out.TypeCourseRepository;
+import fr.grand_plateau.administration.domain.enums.NiveauCourse;
+import fr.grand_plateau.administration.domain.enums.PrestigeCourse;
+import fr.grand_plateau.administration.domain.enums.ZoneChampionnat;
 import fr.grand_plateau.administration.domain.exception.TypeCourseNotFoundException;
 import fr.grand_plateau.administration.domain.model.TypeCourse;
-import fr.grand_plateau.administration.domain.model.TypeCourseRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,12 +29,15 @@ public class TypeCourseService implements TypeCourseInputPort {
   }
 
   @Override
-  public TypeCourse save(TypeCourseRequest typeCourseRequest) {
+  public TypeCourse save(NiveauCourse niveauCourse,
+                         ZoneChampionnat zoneChampionnat,
+                         Integer duree,
+                         PrestigeCourse prestigeCourse) {
     TypeCourse typeCourseToSave = TypeCourse.create(
-        typeCourseRequest.niveauCourse(),
-        typeCourseRequest.zoneChampionnat(),
-        typeCourseRequest.duree(),
-        typeCourseRequest.prestigeCourse()
+        niveauCourse,
+        zoneChampionnat,
+        duree,
+        prestigeCourse
     );
 
     return this.typeCourseRepository.save(typeCourseToSave);

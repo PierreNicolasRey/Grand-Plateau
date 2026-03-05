@@ -6,7 +6,6 @@ import fr.grand_plateau.administration.domain.enums.PrestigeCourse;
 import fr.grand_plateau.administration.domain.enums.ZoneChampionnat;
 import fr.grand_plateau.administration.domain.exception.TypeCourseNotFoundException;
 import fr.grand_plateau.administration.domain.model.TypeCourse;
-import fr.grand_plateau.administration.domain.model.TypeCourseRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -102,15 +101,13 @@ class TypeCourseServiceTest {
   @Test
   void should_create_TypeCourse_successfully() {
     // GIVEN
-    TypeCourseRequest typeCourseRequest =
-        new TypeCourseRequest(NiveauCourse.WORLD_TOUR, null, 1, PrestigeCourse.A);
     TypeCourse expectedTypeCourse =
         new TypeCourse(UUID.randomUUID(), NiveauCourse.WORLD_TOUR, null, 1, PrestigeCourse.A);
 
     when(typeCourseRepository.save(any(TypeCourse.class))).thenReturn(expectedTypeCourse);
 
     // WHEN
-    TypeCourse result = sut.save(typeCourseRequest);
+    TypeCourse result = sut.save(NiveauCourse.WORLD_TOUR, null, 1, PrestigeCourse.A);
 
     // THEN
     Assertions.assertAll(() -> {

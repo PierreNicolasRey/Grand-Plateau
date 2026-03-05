@@ -1,4 +1,4 @@
-package fr.grand_plateau.administration.domain.model;
+package fr.grand_plateau.administration.infrastructure.in.web.dto;
 
 import fr.grand_plateau.administration.domain.enums.NiveauCourse;
 import fr.grand_plateau.administration.domain.enums.PrestigeCourse;
