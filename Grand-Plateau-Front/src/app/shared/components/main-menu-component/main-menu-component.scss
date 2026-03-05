@@ -1,0 +1,20 @@
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+.menu-item {
+    padding: 0.5rem;
+    text-align: center;
+    border: solid 1px var(--bordure-bleu-petrole);
+    background-color: var(--bleu-petrole);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: var(--light-bleu-petrole);
+        font-size: 1.1rem;
+    }
+}

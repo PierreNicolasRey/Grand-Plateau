@@ -1,0 +1,10 @@
+<nav class="main-container">
+    @for (item of menuItems; track $index) {
+        <div 
+            class="menu-item"
+            [routerLink]="item.link"
+        > 
+            {{ item.label }}
+        </div>
+    }
+</nav>

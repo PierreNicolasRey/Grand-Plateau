@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
+import { MainMenuComponent } from "./shared/components/main-menu-component/main-menu-component";
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MainMenuComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('Grand-Plateau-Front');
