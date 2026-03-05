@@ -5,6 +5,7 @@ import fr.grand_plateau.administration.domain.model.Pays;
 import fr.grand_plateau.administration.infrastructure.in.web.dto.PaysDTO;
 import fr.grand_plateau.administration.infrastructure.in.web.dto.PaysRequest;
 import fr.grand_plateau.administration.infrastructure.in.web.mapper.PaysWebMapper;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +47,7 @@ public class PaysController {
   }
 
   @PostMapping
-  public ResponseEntity<PaysDTO> save(@RequestBody PaysRequest paysRequest) {
+  public ResponseEntity<PaysDTO> save(@RequestBody @Valid PaysRequest paysRequest) {
     Pays paysSaved = this.paysInputPort.save(paysRequest.nom(), paysRequest.codeISO());
 
     return new ResponseEntity<>(this.paysWebMapper.toDTO(paysSaved), HttpStatus.CREATED);
