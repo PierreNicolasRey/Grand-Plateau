@@ -1,6 +1,7 @@
 package fr.grand_plateau.administration.infrastructure.in.web.controller;
 
 import fr.grand_plateau.administration.application.ports.in.CategorieCourseInputPort;
+import fr.grand_plateau.administration.domain.model.CategorieCourse;
 import fr.grand_plateau.administration.infrastructure.in.web.dto.CategorieCourseDTO;
 import fr.grand_plateau.administration.infrastructure.in.web.dto.CategorieCourseRequest;
 import fr.grand_plateau.administration.infrastructure.in.web.mapper.CategorieCourseWebMapper;
@@ -33,22 +34,29 @@ public class CategorieCourseController {
 
   @GetMapping("/{id}")
   public ResponseEntity<CategorieCourseDTO> findById(@PathVariable("id")UUID categorieCourseId) {
-    return null;
+    CategorieCourse categorieCourse = this.categorieCourseInputPort.findById(categorieCourseId);
+
+    return new ResponseEntity<>(this.categorieCourseWebMapper.toDTO(categorieCourse), HttpStatus.OK);
   }
 
   @GetMapping
   public ResponseEntity<List<CategorieCourseDTO>> findAll() {
-    return null;
+    List<CategorieCourseDTO> categorieCourseDTOList =
+        this.categorieCourseInputPort.findAll().stream().map(categorieCourseWebMapper::toDTO).toList();
+
+    return new ResponseEntity<>(categorieCourseDTOList, HttpStatus.OK);
   }
 
   @PostMapping
   public ResponseEntity<CategorieCourseDTO> save(@RequestBody @Valid CategorieCourseRequest request) {
-    return null;
+    CategorieCourse categorieCourseSaved = this.categorieCourseInputPort.save(request.nom());
+
+    return new ResponseEntity<>(this.categorieCourseWebMapper.toDTO(categorieCourseSaved), HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable("id")UUID categorieCourseId) {
-
+    this.categorieCourseInputPort.delete(categorieCourseId);
   }
 }
