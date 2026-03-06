@@ -1,1 +1,13 @@
-<p>fil-ariane.component works!</p>
+
+<nav class="fil-ariane- main">
+    @for (step of filAriane(); track step.url; let last = $last) {
+        <span class="fil-ariane-item">
+            @if (!last) {
+                <a [routerLink]="step.url">{{ step.label }}</a>
+                <span> / </span>
+            } @else {
+                <span class="fil-ariane-current">{{ step.label }}</span>
+            }
+        </span>
+    }
+</nav>

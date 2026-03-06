@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { DEFAULT_FIL_ARIANE_STEP, FilArianeStep } from '../../models/fil-ariane-steps.model';
-import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
   selector: 'gp-fil-ariane.component',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './fil-ariane.component.html',
   styleUrl: './fil-ariane.component.scss',
 })
