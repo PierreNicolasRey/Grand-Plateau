@@ -88,7 +88,7 @@ describe('FilArianeComponent', () => {
     it('should handle multi steps when navigating to child route', async () => {
       // ACT
       // From /coureurs, navigating to Jean Bon personal page
-      await router.navigate(["/jean-bon"]);
+      await router.navigate(["/coureurs", "jean-bon"]);
 
       const filAriane = component.filAriane();
 
@@ -96,8 +96,10 @@ describe('FilArianeComponent', () => {
       expect(filAriane.length).toEqual(2);
       expect(filAriane[0].label).toEqual('Coureurs');
       expect(filAriane[0].url).toEqual('/coureurs');
+      expect(component.filAriane()[0].isLast).toBeFalse();
       expect(filAriane[1].label).toEqual('J.Bon');
-      expect(filAriane[1].url).toEqual('/jean-bon');
+      expect(filAriane[1].url).toEqual('/coureurs/jean-bon');
+      expect(component.filAriane()[1].isLast).toBeTrue();
     });
   });
   

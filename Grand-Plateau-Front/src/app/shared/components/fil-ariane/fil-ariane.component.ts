@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { DEFAULT_FIL_ARIANE_STEP, FilArianeStep } from '../../models/fil-ariane-steps.model';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
@@ -12,27 +12,35 @@ import { filter } from 'rxjs';
 export class FilArianeComponent {
   filAriane = signal<FilArianeStep[]>([DEFAULT_FIL_ARIANE_STEP]);
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.filAriane.set(this.buildFilAriane(this.activatedRoute.root));
-    });
+    ).subscribe(() => this.filAriane.set(this.buildFilAriane(this.router.routerState.snapshot.root)));
   }
 
-  private buildFilAriane(root: ActivatedRoute): FilArianeStep[] {
-    const child = root.firstChild;
-    if (child && child.snapshot.data['filAriane'] != null) {
-      const routePath = child.snapshot.routeConfig?.path;
+  private buildFilAriane(root: ActivatedRouteSnapshot): FilArianeStep[] {
+    const steps: FilArianeStep[] = [];
+    let current: ActivatedRouteSnapshot | null = root.firstChild;
 
-      return [
-        {
-          label: child.snapshot.data['filAriane'],
-          url: `/${routePath}`,
-          isLast: true,
-        }
-      ];
+    while (current) {
+      if (current.data['filAriane']) {
+        steps.push({
+          label: current.data['filAriane'],
+          url: '/' + current.pathFromRoot
+            .filter(r => r.routeConfig?.path)
+            .map(r => r.routeConfig!.path)
+            .join('/'),
+          isLast: false
+        });
+      }
+      current = current.firstChild;
     }
+
+    if (steps.length > 0) {
+      steps[steps.length - 1].isLast = true;
+      return steps;
+    }
+
     return [DEFAULT_FIL_ARIANE_STEP];
   }
 }
