@@ -100,6 +100,11 @@ describe('FilArianeComponent', () => {
       expect(filAriane[1].label).toEqual('J.Bon');
       expect(filAriane[1].url).toEqual('/coureurs/jean-bon');
       expect(component.filAriane()[1].isLast).toBeTrue();
+
+      const filArianeStepsAffichees = fixture.nativeElement.querySelectorAll('.fil-ariane-item');
+      expect(filArianeStepsAffichees.length).toEqual(2);
+      expect(filArianeStepsAffichees[0].textContent).toContain('Coureurs');
+      expect(filArianeStepsAffichees[1].textContent).toContain('J.Bon');
     });
   });
   
