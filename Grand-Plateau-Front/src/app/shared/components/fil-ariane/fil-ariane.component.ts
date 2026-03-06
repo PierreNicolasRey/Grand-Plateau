@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DEFAULT_FIL_ARIANE_STEP, FilArianeStep } from '../../models/fil-ariane-steps.model';
 import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
@@ -10,9 +10,11 @@ import { filter } from 'rxjs';
   styleUrl: './fil-ariane.component.scss',
 })
 export class FilArianeComponent {
+  private router: Router = inject(Router);
+  
   filAriane = signal<FilArianeStep[]>([DEFAULT_FIL_ARIANE_STEP]);
 
-  constructor(private router: Router) {
+  constructor() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => this.filAriane.set(this.buildFilAriane(this.router.routerState.snapshot.root)));
