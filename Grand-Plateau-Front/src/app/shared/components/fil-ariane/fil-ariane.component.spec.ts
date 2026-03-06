@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FilArianeComponent } from './fil-ariane.component';
 import { provideRouter, Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { DEFAULT_FIL_ARIANE_STEP } from '../../models/fil-ariane-steps.model';
 
 describe('FilArianeComponent', () => {
   let component: FilArianeComponent;
@@ -18,7 +19,10 @@ describe('FilArianeComponent', () => {
         provideRouter(
           [
             { path: 'coureurs', component: DummyComponent, data: { filAriane: 'Coureurs' } },
-            { path: 'administration', component: DummyComponent, data: { filAriane: 'Administration' } }
+            { path: 'administration', component: DummyComponent, data: { filAriane: 'Administration' } },
+            { path: 'sans-data', component: DummyComponent },
+            { path: '', redirectTo: 'coureurs', pathMatch: 'full' },
+            { path: '**', redirectTo: 'coureurs' }
           ]
         )
       ]
@@ -46,11 +50,37 @@ describe('FilArianeComponent', () => {
 
   describe('Navigation', () => {
     it('should react to navigation and find the label "Administration"', async () => {
+      // ACT
       await router.navigate(['/administration']);
       
-      const breadcrumbs = component.filAriane();
-      expect(breadcrumbs.length).toBe(1);
-      expect(breadcrumbs[0].label).toBe('Administration');
+      const filAriane = component.filAriane();
+
+      // ASSERT
+      expect(filAriane.length).toBe(1);
+      expect(filAriane[0].label).toBe('Administration');
+    });
+
+    it('should fallback to DEFAULT_FIL_ARIANE_STEP and redirect to /coureurs when navigating to an unknown route', async () => {
+      // ACT
+      await router.navigate(['/route-inconnue']);
+
+      // ASSERT
+      expect(router.url).toBe('/coureurs');
+
+      const filAriane = component.filAriane();
+      expect(filAriane.length).toBe(1);
+      expect(filAriane[0].label).toBe('Coureurs');
+      expect(filAriane[0].url).toBe('/coureurs');
+    });
+
+    it('should return default step if route exists but has no filAriane data', async () => {
+      // ACT
+      await router.navigate(['/sans-data']);
+
+      const filAriane = component.filAriane();
+
+      // ASSERT
+      expect(filAriane).toEqual([DEFAULT_FIL_ARIANE_STEP]);
     });
   });
   
