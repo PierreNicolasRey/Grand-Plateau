@@ -18,7 +18,9 @@ describe('FilArianeComponent', () => {
       providers: [
         provideRouter(
           [
-            { path: 'coureurs', component: DummyComponent, data: { filAriane: 'Coureurs' } },
+            { path: 'coureurs', component: DummyComponent, data: { filAriane: 'Coureurs' }, children: [
+              { path: 'jean-bon', component: DummyComponent, data: { filAriane: 'J.Bon' } }
+            ] },
             { path: 'administration', component: DummyComponent, data: { filAriane: 'Administration' } },
             { path: 'sans-data', component: DummyComponent },
             { path: '', redirectTo: 'coureurs', pathMatch: 'full' },
@@ -56,8 +58,8 @@ describe('FilArianeComponent', () => {
       const filAriane = component.filAriane();
 
       // ASSERT
-      expect(filAriane.length).toBe(1);
-      expect(filAriane[0].label).toBe('Administration');
+      expect(filAriane.length).toEqual(1);
+      expect(filAriane[0].label).toEqual('Administration');
     });
 
     it('should fallback to DEFAULT_FIL_ARIANE_STEP and redirect to /coureurs when navigating to an unknown route', async () => {
@@ -65,12 +67,12 @@ describe('FilArianeComponent', () => {
       await router.navigate(['/route-inconnue']);
 
       // ASSERT
-      expect(router.url).toBe('/coureurs');
+      expect(router.url).toEqual('/coureurs');
 
       const filAriane = component.filAriane();
-      expect(filAriane.length).toBe(1);
-      expect(filAriane[0].label).toBe('Coureurs');
-      expect(filAriane[0].url).toBe('/coureurs');
+      expect(filAriane.length).toEqual(1);
+      expect(filAriane[0].label).toEqual('Coureurs');
+      expect(filAriane[0].url).toEqual('/coureurs');
     });
 
     it('should return default step if route exists but has no filAriane data', async () => {
@@ -81,6 +83,21 @@ describe('FilArianeComponent', () => {
 
       // ASSERT
       expect(filAriane).toEqual([DEFAULT_FIL_ARIANE_STEP]);
+    });
+
+    it('should handle multi steps when navigating to child route', async () => {
+      // ACT
+      // From /coureurs, navigating to Jean Bon personal page
+      await router.navigate(["/jean-bon"]);
+
+      const filAriane = component.filAriane();
+
+      // ASSERT
+      expect(filAriane.length).toEqual(2);
+      expect(filAriane[0].label).toEqual('Coureurs');
+      expect(filAriane[0].url).toEqual('/coureurs');
+      expect(filAriane[1].label).toEqual('J.Bon');
+      expect(filAriane[1].url).toEqual('/jean-bon');
     });
   });
   
