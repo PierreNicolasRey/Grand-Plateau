@@ -89,6 +89,7 @@ describe('FilArianeComponent', () => {
       // ACT
       // From /coureurs, navigating to Jean Bon personal page
       await router.navigate(["/coureurs", "jean-bon"]);
+      fixture.detectChanges();
 
       const filAriane = component.filAriane();
 
