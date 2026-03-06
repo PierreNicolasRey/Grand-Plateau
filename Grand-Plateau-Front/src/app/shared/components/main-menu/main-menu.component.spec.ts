@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainMenuComponent } from './main-menu-component';
+import { MainMenuComponent } from './main-menu.component';
 import { provideRouter } from '@angular/router';
 
 describe('MainMenuComponent', () => {

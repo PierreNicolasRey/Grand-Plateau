@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { MainMenuComponent } from "./shared/components/main-menu-component/main-menu-component";
+import { Component } from '@angular/core';
+import { MainMenuComponent } from "./shared/components/main-menu/main-menu.component";
 import { RouterOutlet } from '@angular/router';
 
 @Component({

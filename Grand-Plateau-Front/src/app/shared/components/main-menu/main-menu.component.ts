@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'gp-main-menu-component',
   imports: [RouterLink],
-  templateUrl: './main-menu-component.html',
-  styleUrl: './main-menu-component.scss',
+  templateUrl: './main-menu.component.html',
+  styleUrl: './main-menu.component.scss',
 })
 export class MainMenuComponent {
 
