@@ -6,7 +6,7 @@ module.exports = function (config) {
         files: [],
         exclude: [],
         preprocessors: {
-        'src/**/*.js': ['coverage'] // Cette ligne est souvent gérée par @angular-devkit/build-angular dans Angular
+        'src/**/*.js': ['coverage']
         },
     reporters: ['progress', 'kjhtml', 'coverage'],
     coverageReporter: {
