@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterLink } from '@angu
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'gp-fil-ariane.component',
+  selector: 'gp-fil-ariane-component',
   imports: [RouterLink],
   templateUrl: './fil-ariane.component.html',
   styleUrl: './fil-ariane.component.scss',
