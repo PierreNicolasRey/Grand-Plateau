@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
+import { ItemOption } from '../../models/item-option.model';
 
 @Component({
   selector: 'gp-select-component',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './select.component.scss',
 })
 export class SelectComponent {
+  inputOptions = input.required<ItemOption[]>();
+  includeAllOption = input<boolean>(false);
+
+  finalOptions = signal<ItemOption[]>([]);
 
 }
