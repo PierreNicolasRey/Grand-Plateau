@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { ItemOption } from '../../models/item-option.model';
 
 @Component({
@@ -11,6 +11,14 @@ export class SelectComponent {
   inputOptions = input.required<ItemOption[]>();
   includeAllOption = input<boolean>(false);
 
-  finalOptions = signal<ItemOption[]>([]);
+  finalOptions = computed(() => {
+    const options = [...this.inputOptions()];
+
+    if (this.includeAllOption()) {
+      options.unshift({ label: 'Tous', value: '' });
+    }
+
+    return options;
+  });
 
 }
