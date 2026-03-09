@@ -1,1 +1,10 @@
-<p>select-component works!</p>
+<div class="main-select-container">
+    <select>
+        @if (!includeAllOption()) {
+            <option value="" disabled selected hidden>Sélectionner une option</option>
+        }
+        @for (option of finalOptions(); track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+        }
+    </select>
+</div>

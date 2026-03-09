@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { ItemOption } from '../../models/item-option.model';
 
 @Component({
@@ -10,6 +10,8 @@ import { ItemOption } from '../../models/item-option.model';
 export class SelectComponent {
   inputOptions = input.required<ItemOption[]>();
   includeAllOption = input<boolean>(false);
+
+  selectedValueChange = output<string>();
 
   finalOptions = computed(() => {
     const options = [...this.inputOptions()];
