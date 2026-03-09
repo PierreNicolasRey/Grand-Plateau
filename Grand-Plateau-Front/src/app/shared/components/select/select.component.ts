@@ -23,4 +23,10 @@ export class SelectComponent {
     return options;
   });
 
+  public handleSelectionChange(event: Event): void {
+    if (event) {
+      const target = event.target as HTMLSelectElement;
+      this.selectedValueChange.emit(target.value);
+    }
+  }
 }

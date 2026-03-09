@@ -1,5 +1,5 @@
 <div class="main-select-container">
-    <select>
+    <select (change)="handleSelectionChange($event)">
         @if (!includeAllOption()) {
             <option value="" disabled selected hidden>Sélectionner une option</option>
         }
