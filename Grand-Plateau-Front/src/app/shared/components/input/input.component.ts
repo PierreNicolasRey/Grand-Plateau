@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 
 @Component({
   selector: 'gp-input',
@@ -11,4 +11,11 @@ export class InputComponent {
   isAutoComplete = input<boolean>(false);
 
   valueChange = output<string>();
+
+  idInput = computed(() => {return `id-input-${this.inputLabel()}`});
+
+  public handleInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.valueChange.emit(value);
+  }
 }

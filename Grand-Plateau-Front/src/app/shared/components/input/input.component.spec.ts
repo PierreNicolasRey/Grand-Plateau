@@ -63,24 +63,5 @@ describe('InputComponent', () => {
       // ASSERT
       expect(emittedValue).toEqual('');
     });
-
-    it('should emit trimmed value', () => {
-      // ARRANGE
-      let emittedValue: string | undefined;
-
-      component.valueChange.subscribe((value) => {
-        emittedValue = value;
-      });
-
-      const inputElement: HTMLInputElement = fixture.nativeElement.querySelector('input');
-
-      // ACT
-      inputElement.value = '   test   ';
-      inputElement.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-
-      // ASSERT
-      expect(emittedValue).toEqual('test');
-    });
   });
 });

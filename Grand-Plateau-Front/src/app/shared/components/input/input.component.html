@@ -1,1 +1,4 @@
-<p>input works!</p>
+<div class="main-input-container">
+    <label [for]="idInput()">{{ inputLabel() }} : </label>
+    <input [id]="idInput()" type="text" (input)="handleInput($event)">
+</div>
