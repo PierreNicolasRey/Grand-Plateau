@@ -8,10 +8,14 @@ import { ItemOption } from '../../models/item-option.model';
   styleUrl: './select.component.scss',
 })
 export class SelectComponent {
+  // TODO : Custom dropdown component
   inputOptions = input.required<ItemOption[]>();
   includeAllOption = input<boolean>(false);
+  inputLabel = input.required<string>();
 
   selectedValueChange = output<string>();
+
+  idSelect = computed(() => { return `id-select-${this.inputLabel()}`; });
 
   finalOptions = computed(() => {
     const options = [...this.inputOptions()];

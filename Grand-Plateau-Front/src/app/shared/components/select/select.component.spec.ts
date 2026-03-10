@@ -20,6 +20,7 @@ describe('SelectComponent', () => {
     
     fixture.componentRef.setInput('inputOptions', mockOptions);
     fixture.componentRef.setInput('includeAllOption', false);
+    fixture.componentRef.setInput('inputLabel', 'Test');
 
     fixture.detectChanges();
   });

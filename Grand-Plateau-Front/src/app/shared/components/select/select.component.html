@@ -1,5 +1,9 @@
 <div class="main-select-container">
-    <select (change)="handleSelectionChange($event)">
+    <label [for]="idSelect()">{{ inputLabel() }} : </label>
+    <select
+        [id]="idSelect()"
+        (change)="handleSelectionChange($event)"
+    >
         @if (!includeAllOption()) {
             <option value="" disabled selected hidden>Sélectionner une option</option>
         }
