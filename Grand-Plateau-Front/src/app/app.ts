@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FilArianeComponent } from "./shared/components/fil-ariane/fil-ariane.component";
 
 @Component({
-  selector: 'app-root',
+  selector: 'gp-app-root',
   imports: [RouterOutlet, MainMenuComponent, FilArianeComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
