@@ -58,6 +58,32 @@ describe('TableComponent', () => {
       const cell = fixture.nativeElement.querySelector('td');
       expect(cell.textContent.trim()).toBe('');
     });
+
+    it('should render correct picto for each possible actions', () => {
+      // ARRANGE
+      const mockHeaders = [{key: 'c1', label: 'Column 1'}, {key: 'actions', label: ''}];
+      const mockData = [{c1: 'Value1'}];
+      const mockActions = ['consulter', 'modifier', 'supprimer'];
+
+      fixture.componentRef.setInput('inputHeaders', mockHeaders);
+      fixture.componentRef.setInput('inputData', mockData);
+      fixture.componentRef.setInput('inputActions', mockActions);
+      fixture.detectChanges();
+
+      const buttonElements: HTMLButtonElement[] = fixture.nativeElement.querySelectorAll('button');
+
+      // ASSERT
+      expect(buttonElements.length).toEqual(3);
+
+      const iconConsulter = buttonElements[0].querySelector('i');
+      expect(iconConsulter?.className).toContain('pi-eye');
+
+      const iconModifier = buttonElements[0].querySelector('i');
+      expect(iconModifier?.className).toContain('pi-pencil');
+
+      const iconSupprimer = buttonElements[0].querySelector('i');
+      expect(iconSupprimer?.className).toContain('pi-trash');
+    });
   });
 
   describe('Event Emission', () => {
