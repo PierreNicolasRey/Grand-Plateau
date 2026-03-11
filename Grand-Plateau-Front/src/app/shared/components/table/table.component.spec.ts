@@ -9,9 +9,9 @@ describe('TableComponent', () => {
   let fixture: ComponentFixture<TableComponent<Record<string, string>>>;
 
   const mockHeaders: TableHeader[] = [
-    {key: 'c1', label: 'Column 1'},
-    {key: 'c2', label: 'Column 2'},
-    {key: 'c3', label: 'Column 3'}
+    {key: 'c1', label: 'Column 1', isSortable: true},
+    {key: 'c2', label: 'Column 2', isSortable: true},
+    {key: 'c3', label: 'Column 3', isSortable: false}
   ];
   const mockData = [
     {c1:'ValueA1', c2:'ValueA2', c3: 'ValueA3'},
@@ -51,7 +51,7 @@ describe('TableComponent', () => {
 
     it('should render empty cell when missing data for a column', () => {
       // ARRANGE
-      fixture.componentRef.setInput('inputHeaders', [{ key: 'c1', label: 'Column 1' }]);
+      fixture.componentRef.setInput('inputHeaders', [{ key: 'c1', label: 'Column 1', isSortable: false}]);
       fixture.componentRef.setInput('inputData', [{ c1: '' }]);
       fixture.detectChanges();
 
@@ -62,7 +62,7 @@ describe('TableComponent', () => {
 
     it('should render correct picto for each possible actions', () => {
       // ARRANGE
-      const mockHeaders = [{key: 'c1', label: 'Column 1'}, {key: 'actions', label: ''}];
+      const mockHeaders: TableHeader[] = [{key: 'c1', label: 'Column 1', isSortable: false}, {key: 'actions', label: '', isSortable: false}];
       const mockData = [{c1: 'Value1'}];
       const mockActions = [ActionEnum.CONSULTER, ActionEnum.MODIFIER, ActionEnum.SUPPRIMER];
 
@@ -84,7 +84,7 @@ describe('TableComponent', () => {
   describe('Event Emission', () => {
     it('should emit corresponding action with selected row on click on action button', () => {
       // ARRANGE
-      const mockHeaders = [{key: 'c1', label: 'Column 1'}, {key: 'actions', label: ''}];
+      const mockHeaders: TableHeader[] = [{key: 'c1', label: 'Column 1', isSortable: false}, {key: 'actions', label: '', isSortable: false}];
       const mockData = [{c1: 'Value1'}];
       const mockActions = ['consulter'];
 
@@ -106,6 +106,109 @@ describe('TableComponent', () => {
 
       // ASSERT
       expect(emittedValue).toEqual({action: 'consulter', row: {c1: 'Value1'}});
+    });
+  });
+
+  describe('Sorting data', () => {
+    it('should correctly sort data on click on a header column', () => {
+      // ARRANGE
+      const mockHeaders: TableHeader[] = [{key: 'c1', label: 'Column 1', isSortable: true}, {key: 'actions', label: '', isSortable: false}];
+      const mockData = [{c1: 'Value1'}, {c1: 'Value2'}];
+      const mockActions = ['consulter'];
+
+      fixture.componentRef.setInput('inputHeaders', mockHeaders);
+      fixture.componentRef.setInput('inputData', mockData);
+      fixture.componentRef.setInput('inputActions', mockActions);
+      fixture.detectChanges();
+
+      const sortableHeader: HTMLButtonElement = fixture.nativeElement.querySelector('th.gp-header-cell button');
+      const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+      const icon = fixture.nativeElement.querySelector('.sort-icon');
+
+      expect(icon.className).toContain('pi pi-angle-double-down');
+
+      // ACT
+      sortableHeader.click();
+      fixture.detectChanges();
+
+      // ASSERT
+      expect(rows.length).toBe(2);
+      expect(rows[0].cells[0].textContent).toContain('Value2');
+      expect(rows[1].cells[0].textContent).toContain('Value1');
+      expect(icon.className).toContain('pi pi-angle-double-up');
+    });
+
+    it('should reset previously sorted column icon when another one is sorted', () => {
+      // ARRANGE
+      const mockHeaders: TableHeader[] = [
+        {key: 'c1', label: 'Column 1', isSortable: true},
+        {key: 'c2', label: 'Column 2', isSortable: true},
+      ];
+      const mockData = [{c1: 'Value1', c2: 'AnotherValue1'}, {c1: 'Value2', c2: 'AnotherValue2'}];
+
+      fixture.componentRef.setInput('inputHeaders', mockHeaders);
+      fixture.componentRef.setInput('inputData', mockData);
+      fixture.componentRef.setInput('inputActions', []);
+      fixture.detectChanges();
+
+      const sortableHeaders: HTMLButtonElement[] = fixture.nativeElement.querySelectorAll('th.gp-header-cell button');
+      const initialIcons = fixture.nativeElement.querySelectorAll('.sort-icon');
+
+      // Initial sorting on first column
+      sortableHeaders[0].click();
+      fixture.detectChanges();
+      expect(initialIcons[0].className).toContain('pi pi-angle-double-up');
+
+      // ACT
+      sortableHeaders[1].click();
+      fixture.detectChanges();
+      
+      // ASSERT
+      const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+      const finalIcons = fixture.nativeElement.querySelectorAll('.sort-icon');
+
+      expect(rows[0].cells[0].textContent).toContain('Value2');
+      expect(rows[0].cells[1].textContent).toContain('AnotherValue2');
+      expect(rows[1].cells[0].textContent).toContain('Value1');
+      expect(rows[1].cells[1].textContent).toContain('AnotherValue1');
+      
+      expect(finalIcons[0].className).toContain('pi pi-angle-double-down');
+      expect(finalIcons[1].className).toContain('pi pi-angle-double-up');
+    });
+
+    it('should reset to previous sorting order when same column is sorted twice', () => {
+      // ARRANGE
+      const mockHeaders: TableHeader[] = [
+        {key: 'c1', label: 'Column 1', isSortable: true},
+      ];
+      const mockData = [{c1: 'Value1'}, {c1: 'Value2'}];
+
+      fixture.componentRef.setInput('inputHeaders', mockHeaders);
+      fixture.componentRef.setInput('inputData', mockData);
+      fixture.componentRef.setInput('inputActions', []);
+      fixture.detectChanges();
+
+      const sortableHeaders: HTMLButtonElement[] = fixture.nativeElement.querySelectorAll('th.gp-header-cell button');
+      const initialIcon = fixture.nativeElement.querySelector('.sort-icon');
+
+      // Initial sorting on first column : desc
+      sortableHeaders[0].click();
+      fixture.detectChanges();
+      expect(initialIcon.className).toContain('pi pi-angle-double-up');
+
+      // ACT
+      // Second sorting : asc
+      sortableHeaders[0].click();
+      fixture.detectChanges();
+      
+      // ASSERT
+      const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+      const finalIcon = fixture.nativeElement.querySelector('.sort-icon');
+
+      expect(rows[0].cells[0].textContent).toContain('Value1');
+      expect(rows[1].cells[0].textContent).toContain('Value2');
+      
+      expect(finalIcon.className).toContain('pi pi-angle-double-down');
     });
   });
 });
