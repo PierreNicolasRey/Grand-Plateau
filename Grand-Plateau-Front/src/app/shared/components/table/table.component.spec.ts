@@ -78,10 +78,10 @@ describe('TableComponent', () => {
       const iconConsulter = buttonElements[0].querySelector('i');
       expect(iconConsulter?.className).toContain('pi-eye');
 
-      const iconModifier = buttonElements[0].querySelector('i');
+      const iconModifier = buttonElements[1].querySelector('i');
       expect(iconModifier?.className).toContain('pi-pencil');
 
-      const iconSupprimer = buttonElements[0].querySelector('i');
+      const iconSupprimer = buttonElements[2].querySelector('i');
       expect(iconSupprimer?.className).toContain('pi-trash');
     });
   });
