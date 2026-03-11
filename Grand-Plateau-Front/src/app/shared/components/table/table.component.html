@@ -1,1 +1,30 @@
-<p>table works!</p>
+<div class="main-table-container">
+    <table>
+        <thead>
+            <tr>
+                @for (col of inputHeaders(); track col.key) {
+                    <th>{{ col.label }}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (row of inputData(); track $index) {
+                <tr>
+                    @for (col of inputHeaders(); track col.key) {
+                        <td>
+                            @if('actions' === col.key) {
+                                @for (action of inputActions(); track $index) {
+                                    <button (click)="handleAction(action, row)">
+                                        {{ action }}
+                                    </button>
+                                }
+                            } @else {
+                                {{ row[col.key] }}
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, output} from '@angular/core';
+import { TableHeader } from '../../models/table-column.model';
 
 @Component({
   selector: 'gp-table',
@@ -6,6 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class TableComponent {
+export class TableComponent <T extends Record<string, unknown>> {
+  inputHeaders = input.required<TableHeader[]>();
+  inputData = input.required<T[]>();
+  inputActions = input<string[]>([]);
 
+  actionTriggered = output<{action: string, row: T}>();
+
+  public handleAction(action: string, row: T): void {
+    // Do some logic here after testing
+  }
 }
