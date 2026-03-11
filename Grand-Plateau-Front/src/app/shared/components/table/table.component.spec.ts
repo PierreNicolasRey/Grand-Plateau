@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableComponent } from './table.component';
 import { TableHeader } from '../../models/table-column.model';
+import { ActionEnum } from '../../constants/table.constant';
 
 describe('TableComponent', () => {
   let component: TableComponent<Record<string, string>>;
@@ -63,26 +64,20 @@ describe('TableComponent', () => {
       // ARRANGE
       const mockHeaders = [{key: 'c1', label: 'Column 1'}, {key: 'actions', label: ''}];
       const mockData = [{c1: 'Value1'}];
-      const mockActions = ['consulter', 'modifier', 'supprimer'];
+      const mockActions = [ActionEnum.CONSULTER, ActionEnum.MODIFIER, ActionEnum.SUPPRIMER];
 
       fixture.componentRef.setInput('inputHeaders', mockHeaders);
       fixture.componentRef.setInput('inputData', mockData);
       fixture.componentRef.setInput('inputActions', mockActions);
       fixture.detectChanges();
 
-      const buttonElements: HTMLButtonElement[] = fixture.nativeElement.querySelectorAll('button');
+      const icons: HTMLElement[] = fixture.nativeElement.querySelectorAll('button i');
 
       // ASSERT
-      expect(buttonElements.length).toEqual(3);
-
-      const iconConsulter = buttonElements[0].querySelector('i');
-      expect(iconConsulter?.className).toContain('pi-eye');
-
-      const iconModifier = buttonElements[1].querySelector('i');
-      expect(iconModifier?.className).toContain('pi-pencil');
-
-      const iconSupprimer = buttonElements[2].querySelector('i');
-      expect(iconSupprimer?.className).toContain('pi-trash');
+      expect(icons.length).toEqual(3);
+      expect(icons[0]?.className).toContain('pi-eye');
+      expect(icons[1]?.className).toContain('pi-pencil');
+      expect(icons[2]?.className).toContain('pi-trash');
     });
   });
 

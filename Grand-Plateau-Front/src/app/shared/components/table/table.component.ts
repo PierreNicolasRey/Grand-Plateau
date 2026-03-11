@@ -1,5 +1,6 @@
 import { Component, input, output} from '@angular/core';
 import { TableHeader } from '../../models/table-column.model';
+import { ACTION_ICONS, ActionEnum } from '../../constants/table.constant';
 
 @Component({
   selector: 'gp-table',
@@ -10,11 +11,15 @@ import { TableHeader } from '../../models/table-column.model';
 export class TableComponent <T extends Record<string, unknown>> {
   inputHeaders = input.required<TableHeader[]>();
   inputData = input.required<T[]>();
-  inputActions = input<string[]>([]);
+  inputActions = input<ActionEnum[]>([]);
 
-  actionTriggered = output<{action: string, row: T}>();
+  actionTriggered = output<{action: ActionEnum, row: T}>();
 
-  public handleAction(action: string, row: T): void {
+  public handleAction(action: ActionEnum, row: T): void {
     this.actionTriggered.emit({action, row});
+  }
+
+  public getActionIcon(action: ActionEnum): string {
+    return ACTION_ICONS[action] || '';
   }
 }

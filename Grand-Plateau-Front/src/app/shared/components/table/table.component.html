@@ -14,8 +14,8 @@
                         <td>
                             @if('actions' === col.key) {
                                 @for (action of inputActions(); track $index) {
-                                    <button (click)="handleAction(action, row)">
-                                        {{ action }}
+                                    <button (click)="handleAction(action, row)" [title]="action">
+                                        <i [class]="getActionIcon(action)"></i>
                                     </button>
                                 }
                             } @else {
