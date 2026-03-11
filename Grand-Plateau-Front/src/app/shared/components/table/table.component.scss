@@ -1,3 +1,39 @@
-:host {
-  display: block;
+.main-table-container {
+  width: 100%;
+}
+
+.gp-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.gp-table, .gp-body-cell, .gp-header-cell {
+  border: solid 1px var(--bordure-bleu-petrole);
+}
+
+.gp-body-cell, .gp-header-cell {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.gp-table-header {
+  background-color: var(--bleu-petrole);
+  color: white;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  i {
+    font-size: 1.1rem;
+    color: var(--bleu-petrole);
+  }
 }

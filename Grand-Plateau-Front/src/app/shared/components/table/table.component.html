@@ -1,9 +1,9 @@
 <div class="main-table-container">
-    <table>
-        <thead>
+    <table class="gp-table">
+        <thead class="gp-table-header">
             <tr>
                 @for (col of inputHeaders(); track col.key) {
-                    <th>{{ col.label }}</th>
+                    <th class="gp-header-cell">{{ col.label }}</th>
                 }
             </tr>
         </thead>
@@ -11,10 +11,10 @@
             @for (row of inputData(); track $index) {
                 <tr>
                     @for (col of inputHeaders(); track col.key) {
-                        <td>
+                        <td class="gp-body-cell">
                             @if('actions' === col.key) {
                                 @for (action of inputActions(); track $index) {
-                                    <button (click)="handleAction(action, row)" [title]="action">
+                                    <button (click)="handleAction(action, row)" [title]="action" class="btn-action">
                                         <i [class]="getActionIcon(action)"></i>
                                     </button>
                                 }
