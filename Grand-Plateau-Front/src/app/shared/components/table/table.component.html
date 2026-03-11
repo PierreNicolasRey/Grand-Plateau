@@ -3,12 +3,19 @@
         <thead class="gp-table-header">
             <tr>
                 @for (col of inputHeaders(); track col.key) {
-                    <th class="gp-header-cell">{{ col.label }}</th>
+                    <th class="gp-header-cell">
+                        {{ col.label }}
+                        @if(col.isSortable) {
+                            <button (click)="handleSort(col.key)" title="sort" class="btn-action">
+                                <i [class]="getSortIcon(col.key)" class="sort-icon"></i>
+                            </button>
+                        }                        
+                    </th>
                 }
             </tr>
         </thead>
         <tbody>
-            @for (row of inputData(); track $index) {
+            @for (row of sortedData(); track $index) {
                 <tr>
                     @for (col of inputHeaders(); track col.key) {
                         <td class="gp-body-cell">
